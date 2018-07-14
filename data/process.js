@@ -12,7 +12,7 @@ fs.createReadStream("./data/crime.csv")
   .pipe(csv())
   .on("data", data => {
     di = di + 1;
-    if (data["x"] && di < 1000) {
+    if (data["x"]) {
       const category = data["category"];
 
       let cIndex = categories.indexOf(category);
