@@ -1,16 +1,16 @@
 <html>
 
 <head>
-  <link rel="stylesheet" href="./../lib/leaflet/dist/leaflet.css" />
-  <link rel="stylesheet" href="./../lib/zoomdisplay.css" />
-  <link rel="stylesheet" href="./../demo.css" />
-
-  <script type="text/javascript" src="./../lib/leaflet/dist/leaflet.js"></script>
-  <script type="text/javascript" src="./../lib/zoomdisplay.js"></script>
-  <script type="text/javascript" src="./../../dist/leaflet-regulargridcluster.src.js"></script>
-  <script type="text/javascript" src="./main.js"></script>
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css" />
+  <link rel="stylesheet" href="./../main.css" />
   <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.js"></script>
+  <script type="text/javascript" src="./libs/zoomdisplay.js"></script>
+  <script type="text/javascript" src="./libs/leaflet.regular-grid-cluster.js"></script>
+  <script type="text/javascript" src="./data/data.min.js"></script>
+  <script type="text/javascript" src="./js/main.js"></script>
+
 
   <title>Leaflet regular-grid-cluster plugin demo</title>
 </head>
@@ -23,9 +23,9 @@
 
     <p class="select-row">zone size:</p>
     <select class="render-on-change" id="select-zone-size">
-      <option value="5000">5000</option>
+      <option value="5000" selected>5000</option>
       <option value="7500">7500</option>
-      <option value="10000" selected>10000</option>
+      <option value="10000">10000</option>
       <option value="15000">15000</option>
       <option value="20000">20000</option>
       <option value="50000">50000</option>
@@ -41,20 +41,34 @@
     <select class="render-on-change" id="select-grid-zoom">
       <option value="5">5</option>
       <option value="6">6</option>
-      <option value="7" selected>7</option>
+      <option value="7">7</option>
       <option value="8">8</option>
       <option value="9">9</option>
       <option value="10">10</option>
+      <option value="11">11</option>
+      <option value="12">12</option>
+      <option value="13">13</option>
+      <option value="14">14</option>
+      <option value="15">15</option>
+      <option value="16" selected>16</option>
+      <option value="17">17</option>
     </select>
 
     <p class="select-row">show elements zoom:</p>
     <select class="render-on-change" id="select-elements-zoom">
       <option value="5">5</option>
-      <option value="6" selected>6</option>
+      <option value="6">6</option>
       <option value="7">7</option>
       <option value="8">8</option>
       <option value="9">9</option>
       <option value="10">10</option>
+      <option value="11">11</option>
+      <option value="12">12</option>
+      <option value="13">13</option>
+      <option value="14">14</option>
+      <option value="15">15</option>
+      <option value="16" selected>16</option>
+      <option value="17">17</option>
     </select>
 
     <p class="select-row">show cells:</p>
@@ -83,16 +97,16 @@
 
     <p class="select-row">rules - cells</p>
     <textarea class="render-on-change textarea-rules" id="textarea-rules-cells" rows="10" cols="40">
-"fillColor": {
-  "method": "mean",
-  "attribute": "b",
-  "scale": "size",
-  "domain": [0, 5],
-  "range": ["#d7191c","#fdae61","#ffffbf","#a6d96a","#1a9641"]
-},
-"color": "black",
-"fillOpacity": 0.2,
-"weight": 0    
+      "fillColor": {
+        "method": "count",
+        "scale": "size",
+        "domain": [0, 20],
+        "range": ["#fef0d9","#fdd49e","#fdbb84","#fc8d59","#e34a33","#b30000"]
+      },
+      "color": "white",
+      "fillOpacity": 1,
+      "weight": 1.5
+      
     </textarea>
 
 
@@ -151,7 +165,7 @@
 
     <p>
       <i>
-        <b>Data:</b> Random data with properties 'a' and 'b'</i>
+        <b>Data:</b> Random data with properties "a" and "b"</i>
     </p>
   </div>
 </body>

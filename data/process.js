@@ -6,11 +6,13 @@ const Json2csvParser = require("json2csv").Parser;
 const coded = [];
 
 const categories = [];
+let di = 0;
 
-fs.createReadStream("crime.csv")
+fs.createReadStream("./data/crime.csv")
   .pipe(csv())
-  .on("data", (data, di) => {
-    if (data["x"]) {
+  .on("data", data => {
+    di = di + 1;
+    if (data["x"] && di < 1000) {
       const category = data["category"];
 
       let cIndex = categories.indexOf(category);
@@ -20,7 +22,7 @@ fs.createReadStream("crime.csv")
       }
 
       const point = {
-        c: [parseCoordinate(data["x"]), parseCoordinate(data["y"])],
+        c: [parseCoordinate(data["y"]), parseCoordinate(data["x"])],
         id: di,
         cid: cIndex,
         d: data["date"].split(".")[0] + "." + data["date"].split(".")[1],
@@ -39,10 +41,10 @@ fs.createReadStream("crime.csv")
       }
     };
     fs.writeFile(
-      "./../data.js",
+      "./data/data.js",
       "var data = " + JSON.stringify(collection),
       () => {
-        console.log("crime.json output saved");
+        console.log("data.js output saved");
       }
     );
   });

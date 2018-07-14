@@ -67,3 +67,7 @@ select {
   padding-top: 0.3em;
   font: bold 12px/20px Tahoma, Verdana, sans-serif;
 }
+
+.leaflet-grid-cells-pane-pane {
+  mix-blend-mode: multiply;
+}
