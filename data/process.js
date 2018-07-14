@@ -19,32 +19,34 @@ fs.createReadStream("crime.csv")
         cIndex = categories.length - 1;
       }
 
-      const point = turf.point(
-        [parseCoordinate(data["x"]), parseCoordinate(data["y"])],
-        {
-          id: di,
-          cid: cIndex,
-          d: data["date"].split(".")[0] + "." + data["date"].split(".")[1],
-          t: data["time"].split(":")[0] + ":" + data["time"].split(":")[1]
-        }
-      );
+      const point = {
+        c: [parseCoordinate(data["x"]), parseCoordinate(data["y"])],
+        id: di,
+        cid: cIndex,
+        d: data["date"].split(".")[0] + "." + data["date"].split(".")[1],
+        t: data["time"].split(":")[0] + ":" + data["time"].split(":")[1]
+      };
 
-      point.geometry.coordinates[0] = parseFloat(point.geometry.coordinates[0]);
-      point.geometry.coordinates[1] = parseFloat(point.geometry.coordinates[1]);
       coded.push(point);
     }
   })
   .on("end", () => {
     console.log(categories);
-    var collection = turf.featureCollection(coded);
-    collection.properties = {
-      categories: categories
+    var collection = {
+      points: coded,
+      properties: {
+        categories: categories
+      }
     };
-    fs.writeFile("crime.json", JSON.stringify(collection), () => {
-      console.log("crime.json output saved");
-    });
+    fs.writeFile(
+      "./../js/data.js",
+      "var data = " + JSON.stringify(collection),
+      () => {
+        console.log("crime.json output saved");
+      }
+    );
   });
 
 var parseCoordinate = function(coord) {
-  return parseFloat(coord).toPrecision(6);
+  return parseFloat(parseFloat(coord).toPrecision(6));
 };
