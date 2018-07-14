@@ -41,10 +41,10 @@ fs.createReadStream("./data/crime.csv")
       }
     };
     fs.writeFile(
-      "./data/data.js",
-      "var data = " + JSON.stringify(collection),
+      "./data/crime.js",
+      "var crime = " + JSON.stringify(collection),
       () => {
-        console.log("data.js output saved");
+        console.log("crime.js output saved");
       }
     );
   });

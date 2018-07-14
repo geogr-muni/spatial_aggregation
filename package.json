@@ -6,9 +6,9 @@
   "author": "adammertel <mertel.adam@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "data": "run-s process-data minify-data",
-    "process-data": "node data/process.js",
-    "minify-data": "babel ./data/data.js --out-file ./data/data.min.js --minified",
+    "data": "run-s process-crime minify-crime",
+    "process-crime": "node data/process-crime.js",
+    "minify-crime": "babel ./data/crime.js --out-file ./data/crime.min.js --minified",
     "babel": "babel js/*.js --out-file bundle.js",
     "minify": "babel --plugins=transform-remove-console,minify-mangle-names bundle.js --out-file bundle.min.js --minified",
     "onchange": "onchange js/*.js -- npm run build",

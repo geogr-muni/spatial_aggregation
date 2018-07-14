@@ -1,22 +1,23 @@
 var map;
-var points = [];
 var grid;
+var gridGambling;
+var gridCrime;
 
 var extent = [[49.98, 15.7], [50.08, 15.85]];
-
-console.log(data);
 
 var elementValue = (id, parse = false) => {
   const value = document.getElementById(id).value;
   return parse ? parseInt(value) : value;
 };
 
+var crimePoints = [];
+var gamblingPoints = [];
+
 document.addEventListener("DOMContentLoaded", function(event) {
   console.log("dom loaded");
 
   const colors = ["#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ff7f00"];
-  points = prepareData();
-  console.log(points);
+  prepareData();
 
   // setting map
   map = L.map("map-content");
@@ -49,7 +50,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });
 
 const prepareData = () => {
-  return data.points.map(point => {
+  crimePoints = crime.points.map(point => {
+    return {
+      marker: L.circleMarker(point["c"], circleStyle(point)),
+      properties: point
+    };
+  });
+  gamblingPoints = gambling.map(point => {
     return {
       marker: L.circleMarker(point["c"], circleStyle(point)),
       properties: point
@@ -92,28 +99,39 @@ const circleStyle = props => {
 };
 
 var render = () => {
-  console.log(grid);
-  if (map.hasLayer(grid)) {
-    grid.unregister();
-    map.removeLayer(grid);
+  if (map.hasLayer(gridCrime)) {
+    gridCrime.unregister();
+    map.removeLayer(gridCrime);
+    gridGambling.unregister();
+    map.removeLayer(gridGambling);
   }
 
-  // define RegularGridCluster instance
-  grid = L.regularGridCluster({
+  gridOptions = {
     rules: getRules(),
     zoomShowElements: elementValue("select-elements-zoom", true),
     zoomHideGrid: elementValue("select-grid-zoom", true),
     zoneSize: elementValue("select-zone-size", true),
     gridMode: elementValue("select-grid-mode"),
-    showCells: elementValue("select-show-cells") === "1",
+    showCells: false, //elementValue("select-show-cells") === "1",
     showEmptyCells: false, //elementValue("select-show-empty-cells") === "1",
     showMarkers: false, //elementValue("select-show-markers") === "1",
     showTexts: false, //elementValue("select-show-texts") === "1",
-    trackingTime: true,
     gridOrigin: { lat: extent[0][0], lng: extent[0][1] },
     gridEnd: { lat: extent[1][0], lng: extent[1][1] }
-  });
+  };
 
-  grid.addLayers(points);
-  grid.addTo(map);
+  // define RegularGridCluster instance
+  gridCrime = L.regularGridCluster(
+    Object.assign({}, gridOptions, { showCells: true })
+  );
+
+  gridGambling = L.regularGridCluster(
+    Object.assign({}, gridOptions, { showMarkers: true })
+  );
+
+  gridCrime.addLayers(crimePoints);
+  gridCrime.addTo(map);
+
+  gridGambling.addLayers(gamblingPoints);
+  gridGambling.addTo(map);
 };
