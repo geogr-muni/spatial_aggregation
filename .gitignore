@@ -1,4 +1,5 @@
 node_modules
 *.log
 *.log.*
-*crime.csv
+*crime.csv*
+data/.~lock*

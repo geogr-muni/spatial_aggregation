@@ -39,7 +39,7 @@ fs.createReadStream("crime.csv")
       }
     };
     fs.writeFile(
-      "./../js/data.js",
+      "./../data.js",
       "var data = " + JSON.stringify(collection),
       () => {
         console.log("crime.json output saved");
