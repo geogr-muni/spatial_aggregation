@@ -13,7 +13,7 @@ var elementValue = (id, parse = false) => {
 var crimePoints = [];
 var gamblingPoints = [];
 
-console.log(gambling);
+console.log(crime);
 
 document.addEventListener("DOMContentLoaded", function(event) {
   console.log("dom loaded");
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   prepareData();
 
   // setting map
-  map = L.map("map-content");
+  map = L.map("map-content", { maxZoom: 15 });
   map.fitBounds(extent);
 
   var CartoDB_Positron = L.tileLayer(
@@ -43,6 +43,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
   selects.map(select => {
     if (select.addEventListener) {
       select.addEventListener("change", () => {
+        if (
+          vt(elementValue("select-time-from")) > elementValue("select-time-to")
+        ) {
+          document.getElementById("select-time-from").value = "00:00";
+        }
         render();
       });
     }
@@ -104,7 +109,7 @@ var render = () => {
         fillColor: {
           method: "count",
           scale: "quantile",
-          range: ["#fdd49e", "#fdbb84", "#fc8d59", "#e34a33", "#b30000"]
+          range: ["#fed976", "#feb24c", "#fd8d3c", "#f03b20", "#bd0026"]
         },
         color: "white",
         fillOpacity: 1,
@@ -155,9 +160,32 @@ var render = () => {
     })
   );
 
-  gridCrime.addLayers(crimePoints);
+  gridCrime.addLayers(
+    crimePoints.filter(function(point) {
+      return inTimeInterval(
+        point.properties.t,
+        elementValue("select-time-from"),
+        elementValue("select-time-to")
+      );
+    })
+  );
   gridCrime.addTo(map);
 
   gridGambling.addLayers(gamblingPoints);
   gridGambling.addTo(map);
+};
+
+/* processing time */
+var h = function(t) {
+  return t.split(":")[0];
+};
+var m = function(t) {
+  return t.split(":")[1];
+};
+var vt = function(t) {
+  return h(t) + m(t) / 60;
+};
+
+var inTimeInterval = function(value, from, to) {
+  return vt(value) > vt(from) && vt(value) < vt(to);
 };
