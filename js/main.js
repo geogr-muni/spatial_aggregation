@@ -71,13 +71,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 const prepareData = () => {
   crimePoints = crime.points.map(point => {
     return {
-      marker: L.circleMarker(point["c"], circleStyle(point, "red")),
+      marker: L.circleMarker(point["c"], circleStyle(point, "#b10026", 1.2)),
       properties: point
     };
   });
   gamblingPoints = gambling.map(point => {
     return {
-      marker: L.circleMarker(point["c"], circleStyle(point, "black")),
+      marker: L.circleMarker(point["c"], circleStyle(point, "green", 4)),
       properties: point
     };
   });
@@ -96,14 +96,16 @@ const parseTextAreaValue = textAreaId => {
   }
 };
 
-const circleStyle = (props, color) => {
+const circleStyle = (props, color, radius) => {
   return {
     //fillColor: ["#ffffcc", "#a1dab4", "#41b6c4", "#2c7fb8", "#253494"][
     //  props.cid
     //],
     fillColor: color,
-    color: color,
-    radius: 1
+    color: "black",
+    weight: 0.5,
+    fillOpacity: 1,
+    radius: radius
   };
 };
 
@@ -132,7 +134,15 @@ var render = () => {
         fillColor: {
           method: "count",
           scale: "quantile",
-          range: ["#fed976", "#feb24c", "#fd8d3c", "#f03b20", "#bd0026"]
+          range: [
+            "#ffffcc",
+            "#ffeda0",
+            "#fed976",
+            "#feb24c",
+            "#fd8d3c",
+            "#fc4e2a",
+            "#e31a1c"
+          ]
         },
         color: "white",
         fillOpacity: 1,
