@@ -46,6 +46,10 @@ body {
   margin-left: 5px;
 }
 
+.leaflet-popup-pane {
+  z-index: 1700;
+}
+
 h4 {
   margin-bottom: 2px;
 }

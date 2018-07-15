@@ -71,6 +71,19 @@ const prepareData = () => {
     return L.circleMarker(
       point["c"],
       Object.assign({}, point, circleStyle(point, "#b10026", 5))
+    ).bindPopup(
+      "<div><h4>crime id: " +
+        point.id +
+        "</h4>" +
+        "<div class='tooltip-line'>date: " +
+        point.d +
+        ".</div>" +
+        "<div class='tooltip-line'>time: " +
+        point.t +
+        "</div>" +
+        "<div class='tooltip-line'>category: " +
+        crime.properties.categories[point.cid].label +
+        "</div></div>"
     );
   });
 };
