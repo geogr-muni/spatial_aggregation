@@ -5,7 +5,34 @@ const Json2csvParser = require("json2csv").Parser;
 
 const coded = [];
 
-const categories = [];
+const categories = {
+  0: {
+    values: [
+      "§ 47 proti verejnému porádku",
+      "§ 48 proti verejnému porádku",
+      "§ 47b proti verejnému porádku",
+      "§ 47a proti verejnému porádku"
+    ],
+    label: "against public order"
+  },
+
+  1: {
+    values: ["§ 50 proti majetku", "proti majetku (hlava V)"],
+    label: "against property"
+  },
+  2: {
+    values: ["§ 49 proti obcanskému soužití"],
+    label: "against peaceful co-existence"
+  },
+  3: {
+    values: ["proti porádku ve vecech verejných (hlava X)"],
+    label: "against public administration"
+  },
+  4: {
+    values: ["proti životu a zdraví (hlava I)"],
+    label: "against the life and health"
+  }
+};
 let di = 0;
 
 fs.createReadStream("./data/crime.csv")
@@ -13,13 +40,13 @@ fs.createReadStream("./data/crime.csv")
   .on("data", data => {
     di = di + 1;
     if (data["x"]) {
-      const category = data["category"];
+      const categoryValue = data["category"];
 
-      let cIndex = categories.indexOf(category);
-      if (cIndex < 0) {
-        categories.push(category);
-        cIndex = categories.length - 1;
-      }
+      cIndex = Object.keys(categories).find(categoryKey => {
+        let c = categories[categoryKey];
+        return c.values.indexOf(categoryValue) > -1;
+      });
+      console.log(cIndex);
 
       const point = {
         c: [parseCoordinate(data["y"]), parseCoordinate(data["x"])],

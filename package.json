@@ -6,7 +6,7 @@
   "author": "adammertel <mertel.adam@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "data": "run-s process-crime minify-crime",
+    "data-crime": "run-s process-crime minify-crime",
     "process-crime": "node data/process-crime.js",
     "minify-crime": "babel ./data/crime.js --out-file ./data/crime.min.js --minified",
     "babel": "babel js/*.js --out-file bundle.js",
