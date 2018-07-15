@@ -177,10 +177,10 @@ var render = () => {
 
 /* processing time */
 var h = function(t) {
-  return t.split(":")[0];
+  return parseInt(t.split(":")[0], 10);
 };
 var m = function(t) {
-  return t.split(":")[1];
+  return parseInt(t.split(":")[1], 10);
 };
 var vt = function(t) {
   return h(t) + m(t) / 60;
