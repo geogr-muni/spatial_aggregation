@@ -963,7 +963,7 @@ L.RegularGridCluster.include({
       var j = g.slice(0);
       j.push(e);
       j.unshift(d);
-      var k = (c - j[i]) / (j[i + 1] - j[i]);
+      var k = (c - j[i]) / (j[i + 1] - j[i]) || 0;
       var l = h[i];
       var m = h[i + 1];
       if (b._isNumber(l)) {

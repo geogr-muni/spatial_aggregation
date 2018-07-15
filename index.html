@@ -22,145 +22,73 @@
   <div id="panel">
     <h2>Leaflet regular-grid-cluster plugin demo</h2>
 
-    <p class="select-row">zone size:</p>
-    <select class="render-on-change" id="select-zone-size">
-      <option value="5000" selected>5000</option>
-      <option value="7500">7500</option>
-      <option value="10000">10000</option>
-      <option value="15000">15000</option>
-      <option value="20000">20000</option>
-      <option value="50000">50000</option>
-    </select>
 
-    <p class="select-row">grid mode:</p>
+    <p class="select-row">zone size:</p>
+    <input type="range" value="5000" min="2500" max="20000" class="render-on-change" id="select-zone-size" step="100" />
+
+    <p class="select-row">shape:</p>
     <select class="render-on-change" id="select-grid-mode">
       <option value="hexagon" selected>hexagon</option>
       <option value="square">square</option>
     </select>
 
-    <p class="select-row">hide grid zoom:</p>
-    <select class="render-on-change" id="select-grid-zoom">
-      <option value="5">5</option>
-      <option value="6">6</option>
-      <option value="7">7</option>
-      <option value="8">8</option>
-      <option value="9">9</option>
-      <option value="10">10</option>
-      <option value="11">11</option>
-      <option value="12">12</option>
-      <option value="13">13</option>
-      <option value="14">14</option>
-      <option value="15">15</option>
-      <option value="16" selected>16</option>
-      <option value="17">17</option>
+    <p class="select-row">show crime points:</p>
+    <select class="render-on-change" id="select-show-points-crime">
+      <option value="1">yes</option>
+      <option value="0" selected>no</option>
     </select>
 
-    <p class="select-row">show elements zoom:</p>
-    <select class="render-on-change" id="select-elements-zoom">
-      <option value="5">5</option>
-      <option value="6">6</option>
-      <option value="7">7</option>
-      <option value="8">8</option>
-      <option value="9">9</option>
-      <option value="10">10</option>
-      <option value="11">11</option>
-      <option value="12">12</option>
-      <option value="13">13</option>
-      <option value="14">14</option>
-      <option value="15">15</option>
-      <option value="16" selected>16</option>
-      <option value="17">17</option>
+    <p class="select-row">show gambling site points:</p>
+    <select class="render-on-change" id="select-show-points-gambling">
+      <option value="1">yes</option>
+      <option value="0" selected>no</option>
     </select>
 
-    <p class="select-row">show cells:</p>
-    <select class="render-on-change" id="select-show-cells">
-      <option value="1" selected>yes</option>
-      <option value="0">no</option>
-    </select>
-
-    <p class="select-row">show markers:</p>
+    <p class="select-row">show gambling markers:</p>
     <select class="render-on-change" id="select-show-markers">
       <option value="1" selected>yes</option>
       <option value="0">no</option>
     </select>
 
-    <p class="select-row">show texts:</p>
-    <select class="render-on-change" id="select-show-texts">
+    <p class="select-row">show crime bins:</p>
+    <select class="render-on-change" id="select-show-cells">
       <option value="1" selected>yes</option>
       <option value="0">no</option>
     </select>
 
-    <p class="select-row">show empty cells:</p>
-    <select class="render-on-change" id="select-show-empty-cells">
-      <option value="1">yes</option>
-      <option value="0" selected>no</option>
-    </select>
 
     <p class="select-row">rules - cells</p>
     <textarea class="render-on-change textarea-rules" id="textarea-rules-cells" rows="10" cols="40">
       "fillColor": {
         "method": "count",
         "scale": "quantile",
-        "range": ["#fef0d9","#fdd49e","#fdbb84","#fc8d59","#e34a33","#b30000"]
+        "range": ["#fdd49e","#fdbb84","#fc8d59","#e34a33","#b30000"]
       },
       "color": "white",
-      "fillOpacity": 0.5,
+      "fillOpacity": 1,
       "weight": 1.5
+    
     </textarea>
 
 
     <p class="select-row">rules - markers</p>
     <textarea class="render-on-change textarea-rules" id="textarea-rules-markers" rows="10" cols="40">
-      "color": "black",
+      "color": "white",
       "weight": 2,
       "fillOpacity": 1,
-      "fillColor": "white",
+      "fillColor": "black",
       "radius": {
         "method": "count",
         "attribute": "",
         "scale": "continuous",
-        "range": [2, 10]
+        "range": [7, 15]
       }
           
     </textarea>
 
-
-    <p class="select-row">rules - texts</p>
-    <textarea class="render-on-change textarea-rules" id="textarea-rules-texts" rows="10" cols="40">
-"color": {
-  "method": "count",
-  "attribute": "",
-  "scale": "quantile",
-  "range": ["grey", "black"]
-},
-"fontSize": {
-  "method": "count",
-  "attribute": "",
-  "scale": "continuous",
-  "range": [12, 22]
-},
-"fontWeight": "bold",
-"text": {
-  "method": "count",
-  "attribute": ""
-},
-"anchorOffsetX": {
-  "method": "count",
-  "attribute": "",
-  "scale": "continuous",
-  "range": [3, 12]
-},
-"anchorOffsetY": {
-  "method": "count",
-  "attribute": "",
-  "scale": "continuous",
-  "range": [-5, -1]
-}
-    </textarea>
-
     <p>
       <i>
-        <b>Data:</b> Random data with properties "a" and "b"</i>
+        <b>Data:</b> Crimilality in city of Pardubice</i>
     </p>
   </div>
 </body>

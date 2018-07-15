@@ -13,6 +13,8 @@ var elementValue = (id, parse = false) => {
 var crimePoints = [];
 var gamblingPoints = [];
 
+console.log(gambling);
+
 document.addEventListener("DOMContentLoaded", function(event) {
   console.log("dom loaded");
 
@@ -52,13 +54,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 const prepareData = () => {
   crimePoints = crime.points.map(point => {
     return {
-      marker: L.circleMarker(point["c"], circleStyle(point)),
+      marker: L.circleMarker(point["c"], circleStyle(point, "red")),
       properties: point
     };
   });
   gamblingPoints = gambling.map(point => {
     return {
-      marker: L.circleMarker(point["c"], circleStyle(point)),
+      marker: L.circleMarker(point["c"], circleStyle(point, "black")),
       properties: point
     };
   });
@@ -77,23 +79,13 @@ const parseTextAreaValue = textAreaId => {
   }
 };
 
-const getRules = () => {
-  const rulesTextCells = parseTextAreaValue("textarea-rules-cells");
-  const rulesTextMarkers = parseTextAreaValue("textarea-rules-markers");
-  const rulesTextTexts = parseTextAreaValue("textarea-rules-texts");
-
-  return {
-    cells: rulesTextCells,
-    markers: rulesTextMarkers,
-    texts: rulesTextTexts
-  };
-};
-
-const circleStyle = props => {
+const circleStyle = (props, color) => {
   return {
     //fillColor: ["#ffffcc", "#a1dab4", "#41b6c4", "#2c7fb8", "#253494"][
     //  props.cid
     //],
+    fillColor: color,
+    color: color,
     radius: 1
   };
 };
@@ -107,26 +99,60 @@ var render = () => {
   }
 
   gridOptions = {
-    rules: getRules(),
-    zoomShowElements: elementValue("select-elements-zoom", true),
-    zoomHideGrid: elementValue("select-grid-zoom", true),
+    rules: {
+      cells: {
+        fillColor: {
+          method: "count",
+          scale: "quantile",
+          range: ["#fdd49e", "#fdbb84", "#fc8d59", "#e34a33", "#b30000"]
+        },
+        color: "white",
+        fillOpacity: 1,
+        weight: 1.5
+      },
+      markers: {
+        color: "white",
+        weight: 2,
+        fillOpacity: 1,
+        fillColor: "black",
+        radius: {
+          method: "count",
+          attribute: "",
+          scale: "continuous",
+          range: [7, 15]
+        }
+      }
+    },
+    zoomShowElements: false,
+    zoomHideGrid: 20,
     zoneSize: elementValue("select-zone-size", true),
     gridMode: elementValue("select-grid-mode"),
-    showCells: false, //elementValue("select-show-cells") === "1",
-    showEmptyCells: false, //elementValue("select-show-empty-cells") === "1",
-    showMarkers: false, //elementValue("select-show-markers") === "1",
-    showTexts: false, //elementValue("select-show-texts") === "1",
+    showMarkers: false,
+    showCells: false,
+    showEmptyCells: true, //elementValue("select-show-empty-cells") === "1",
     gridOrigin: { lat: extent[0][0], lng: extent[0][1] },
-    gridEnd: { lat: extent[1][0], lng: extent[1][1] }
+    gridEnd: { lat: extent[1][0], lng: extent[1][1] },
+    emptyCellOptions: {
+      color: "white",
+      fillColor: "white"
+    }
   };
 
   // define RegularGridCluster instance
   gridCrime = L.regularGridCluster(
-    Object.assign({}, gridOptions, { showCells: true })
+    Object.assign({}, gridOptions, {
+      zoomShowElements:
+        elementValue("select-show-points-crime") === "1" ? 5 : 20,
+      showCells: elementValue("select-show-cells") === "1"
+    })
   );
 
   gridGambling = L.regularGridCluster(
-    Object.assign({}, gridOptions, { showMarkers: true })
+    Object.assign({}, gridOptions, {
+      zoomShowElements:
+        elementValue("select-show-points-gambling") === "1" ? 5 : 20,
+      showMarkers: elementValue("select-show-markers") === "1"
+    })
   );
 
   gridCrime.addLayers(crimePoints);
