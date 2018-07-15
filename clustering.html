@@ -1,0 +1,45 @@
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css" />
+  <link rel="stylesheet" href="./main.css" />
+  <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.js"></script>
+  <script type="text/javascript" src="./libs/zoomdisplay.js"></script>
+  <script type="text/javascript" src="./libs/leaflet.marker-cluster.js"></script>
+  <script type="text/javascript" src="./libs/leaflet.marker-cluster-placement.js"></script>
+  <script type="text/javascript" src="./data/crime.min.js"></script>
+  <script type="text/javascript" src="./js/clustering.js"></script>
+
+
+  <title>Spatial Aggregation </title>
+</head>
+
+
+<body>
+  <div id="map-content"></div>
+  <div id="panel">
+    <h2>Spatial Aggregation sandbox</h2>
+
+    <p class="select-row">zone size:</p>
+    <input type="range" value="6000" min="2500" max="20000" class="render-on-change" id="select-zone-size" step="100" />
+
+
+    <p class="select-row">crime filter - time from:</p>
+    <input type="time" id="select-time-from" value="00:00" class="render-on-change">
+
+    <p class="select-row">crime filter - time to:</p>
+    <input type="time" id="select-time-to" value="23:00" class="render-on-change">
+
+    <p class="select-row">crime filter - crime categories:</p>
+    <div id="category-filter"></div>
+
+    <p>
+      <i>
+        <b>Data:</b> Crimilality in city of Pardubice, Numbers of gambling machines</i>
+    </p>
+  </div>
+</body>
+
+</html>
