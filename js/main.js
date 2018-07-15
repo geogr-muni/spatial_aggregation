@@ -112,14 +112,14 @@ var render = () => {
       },
       markers: {
         color: "white",
-        weight: 2,
+        weight: 1.5,
         fillOpacity: 1,
         fillColor: "black",
         radius: {
           method: "count",
           attribute: "",
           scale: "continuous",
-          range: [7, 15]
+          range: [3, elementValue("select-zone-size", true) / 500]
         }
       }
     },
