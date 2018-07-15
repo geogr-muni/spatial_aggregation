@@ -34,7 +34,7 @@ const categories = {
   },
   5: {
     values: ["§ 30 na úseku ochrany pred alkoholismem a jinými toxikomaniemi"],
-    label: "alcohol and toxico"
+    label: "substance abuse"
   }
 };
 let di = 0;
@@ -50,7 +50,6 @@ fs.createReadStream("./data/crime.csv")
         let c = categories[categoryKey];
         return c.values.indexOf(categoryValue) > -1;
       });
-      console.log(cIndex);
 
       const point = {
         c: [parseCoordinate(data["y"]), parseCoordinate(data["x"])],
