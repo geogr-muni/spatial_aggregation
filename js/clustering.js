@@ -120,6 +120,15 @@ var render = () => {
   );
 
   clusters = L.markerClusterGroup({
+    iconCreateFunction: function(cluster) {
+      var childCount = cluster.getChildCount();
+
+      return new L.DivIcon({
+        html: "<div><span>" + childCount + "</span></div>",
+        className: "marker-cluster",
+        iconSize: new L.Point(40, 40)
+      });
+    },
     spiderLegPolylineOptions: { weight: 0 },
     clockHelpingCircleOptions: {
       weight: 0.7,
@@ -128,6 +137,8 @@ var render = () => {
       fillOpacity: 0,
       dashArray: "10 5"
     },
+
+    maxClusterRadius: elementValue("select-zone-size", true),
 
     elementsPlacementStrategy: "clock",
     helpingCircles: true,
