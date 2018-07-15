@@ -31,6 +31,10 @@ const categories = {
   4: {
     values: ["proti životu a zdraví (hlava I)"],
     label: "against the life and health"
+  },
+  5: {
+    values: ["§ 30 na úseku ochrany pred alkoholismem a jinými toxikomaniemi"],
+    label: "alcohol and toxico"
   }
 };
 let di = 0;

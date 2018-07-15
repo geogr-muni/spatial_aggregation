@@ -18,7 +18,19 @@ console.log(crime);
 document.addEventListener("DOMContentLoaded", function(event) {
   console.log("dom loaded");
 
-  const colors = ["#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ff7f00"];
+  Object.keys(crime.properties.categories).map(crimeKey => {
+    const category = crime.properties.categories[crimeKey];
+    document
+      .getElementById("category-filter")
+      .insertAdjacentHTML(
+        "beforeend",
+        '<input type="checkbox" class="render-on-change crime-filter" name="crime" value="' +
+          crimeKey +
+          '" checked>' +
+          category.label +
+          "<br>"
+      );
+  });
   prepareData();
 
   // setting map
@@ -96,6 +108,17 @@ const circleStyle = (props, color) => {
 };
 
 var render = () => {
+  const checkedCategories = [];
+  Array.prototype.forEach.call(
+    document.getElementsByClassName("crime-filter"),
+    el => {
+      if (el.checked) {
+        checkedCategories.push(el.value);
+      }
+    }
+  );
+
+  console.log("rendering");
   if (map.hasLayer(gridCrime)) {
     gridCrime.unregister();
     map.removeLayer(gridCrime);
@@ -162,10 +185,12 @@ var render = () => {
 
   gridCrime.addLayers(
     crimePoints.filter(function(point) {
-      return inTimeInterval(
-        point.properties.t,
-        elementValue("select-time-from"),
-        elementValue("select-time-to")
+      return (
+        inTimeInterval(
+          point.properties.t,
+          elementValue("select-time-from"),
+          elementValue("select-time-to")
+        ) && checkedCategories.indexOf(point.properties.cid) > -1
       );
     })
   );

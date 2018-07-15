@@ -26,11 +26,6 @@
     <p class="select-row">zone size:</p>
     <input type="range" value="5000" min="2500" max="20000" class="render-on-change" id="select-zone-size" step="100" />
 
-    <p class="select-row">crime filter - time from:</p>
-    <input type="time" id="select-time-from" value="00:00" class="render-on-change">
-
-    <p class="select-row">crime filter - time to:</p>
-    <input type="time" id="select-time-to" value="23:00" class="render-on-change">
 
     <p class="select-row">shape:</p>
     <select class="render-on-change" id="select-grid-mode">
@@ -62,6 +57,14 @@
       <option value="0">no</option>
     </select>
 
+    <p class="select-row">crime filter - time from:</p>
+    <input type="time" id="select-time-from" value="00:00" class="render-on-change">
+
+    <p class="select-row">crime filter - time to:</p>
+    <input type="time" id="select-time-to" value="23:00" class="render-on-change">
+
+    <p class="select-row">crime filter - crime categories:</p>
+    <div id="category-filter"></div>
 
     <p>
       <i>
